@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D938DC382044FAAB00DAB0F6 /* UIImage+CompressEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D938DC372044FAAB00DAB0F6 /* UIImage+CompressEx.swift */; };
 		D995C14A20423F300081B38A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995C14920423F300081B38A /* AppDelegate.swift */; };
 		D995C14C20423F300081B38A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995C14B20423F300081B38A /* ViewController.swift */; };
 		D995C14F20423F300081B38A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D995C14D20423F300081B38A /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D938DC372044FAAB00DAB0F6 /* UIImage+CompressEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CompressEx.swift"; sourceTree = "<group>"; };
 		D995C14620423F300081B38A /* CompressImage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CompressImage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D995C14920423F300081B38A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D995C14B20423F300081B38A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				D995C14920423F300081B38A /* AppDelegate.swift */,
 				D995C14B20423F300081B38A /* ViewController.swift */,
 				D995C14D20423F300081B38A /* Main.storyboard */,
+				D938DC372044FAAB00DAB0F6 /* UIImage+CompressEx.swift */,
 				D995C15320423F300081B38A /* Assets.xcassets */,
 				D995C15520423F300081B38A /* LaunchScreen.storyboard */,
 				D995C15820423F300081B38A /* Info.plist */,
@@ -139,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D938DC382044FAAB00DAB0F6 /* UIImage+CompressEx.swift in Sources */,
 				D995C14C20423F300081B38A /* ViewController.swift in Sources */,
 				D995C14A20423F300081B38A /* AppDelegate.swift in Sources */,
 				D995C15220423F300081B38A /* CompressImage.xcdatamodeld in Sources */,

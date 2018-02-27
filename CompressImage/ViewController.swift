@@ -16,7 +16,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     func getSizeAnd(image: UIImage, label: UILabel){
         var mb:Double = 0
-        if let imageData = UIImageJPEGRepresentation(image, 0.5) {
+        if let imageData = UIImageJPEGRepresentation(image, 1) {
             let bytes = imageData.count
             mb = Double(bytes) / (1024.0 * 1024)
         } else if let imageData = UIImagePNGRepresentation(image){
@@ -52,72 +52,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func compressImageAction(_ sender: UIButton) {
-        let compressedImage = compressImage(image: UiImageView.image!, expectedSizeKb: 100)
-        print(compressedImage.size)
-        getSizeAnd(image: compressedImage, label: imgCompressedSize)
-        DispatchQueue.main.async {
-            self.UiImageView.image = compressedImage
+        do {
+            try UiImageView.image?.compressImage(100, completion: { (image, compressRatio) in
+                print(image.size)
+                
+                DispatchQueue.main.async {
+                    self.getSizeAnd(image: image, label: self.imgCompressedSize)
+                    self.UiImageView.image = image
+                }
+            })
+        } catch UIImage.CompressImageErrors.invalidExSize {
+            print("This size is invalid")
+        } catch UIImage.CompressImageErrors.sizeImpossibleToReach{
+            print("Impossible To Reach this size too small")
+        } catch {
+            print("Unhandled Error")
         }
+       
     }
     
     
-    func compressImage(image:UIImage, expectedSizeKb: Int) -> UIImage {
-        var expectedSizeBytes = 0
-        if expectedSizeKb > 0{
-                expectedSizeBytes = expectedSizeKb * 1024
-        } else {
-            expectedSizeBytes = 1024
-        }
-        
-        var actualHeight : CGFloat = image.size.height
-        var actualWidth : CGFloat = image.size.width
-        var maxHeight : CGFloat = 841 //A4 default size I'm thinking about a document
-        var maxWidth : CGFloat = 594
-        var imgRatio : CGFloat = actualWidth/actualHeight
-        let maxRatio : CGFloat = maxWidth/maxHeight
-        var compressionQuality : CGFloat = 1
-        var imageData:Data = UIImageJPEGRepresentation(image, compressionQuality)!
-        while imageData.count > expectedSizeBytes {
-            
-            if (actualHeight > maxHeight || actualWidth > maxWidth){
-                if(imgRatio < maxRatio){
-                    imgRatio = maxHeight / actualHeight;
-                    actualWidth = imgRatio * actualWidth;
-                    actualHeight = maxHeight;
-                }
-                else if(imgRatio > maxRatio){
-                    imgRatio = maxWidth / actualWidth;
-                    actualHeight = imgRatio * actualHeight;
-                    actualWidth = maxWidth;
-                }
-                else{
-                    actualHeight = maxHeight;
-                    actualWidth = maxWidth;
-                    compressionQuality = 1;
-                }
-            }
-            let rect = CGRect(x: 0.0, y: 0.0, width: actualWidth, height: actualHeight)
-            UIGraphicsBeginImageContext(rect.size);
-            image.draw(in: rect)
-            let img = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-            if let imgData = UIImageJPEGRepresentation(img!, compressionQuality) {
-                if imgData.count > expectedSizeBytes {
-                    if compressionQuality > 0.4 {
-                            compressionQuality -= 0.1
-                    } else {
-                        maxHeight = maxHeight * 0.9
-                        maxWidth = maxWidth * 0.9
-                    }
-                }
-                imageData = imgData
-            }
-            
-           
-        }
-        
-        
-        return UIImage(data: imageData)!
-    }
+    
 }
 
